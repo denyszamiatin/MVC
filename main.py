@@ -1,5 +1,6 @@
 import configparser
 
+
 class Contacts:
     def __init__(self, serializer):
         self.serializer = serializer
@@ -10,27 +11,27 @@ class Contacts:
             self.contacts[name] = phone
             self.serializer.save(self.contacts)
         else:
-            print('Contact exists')
+            raise ValueError('Contact exists')
 
     def read_contact(self, name):
         try:
             print(self.contacts[name])
         except KeyError:
-            print("Contact doesn't exist")
+            raise ValueError("Contact doesn't exist")
 
     def update_contact(self, name, phone):
         if name in self.contacts:
             self.contacts[name] = phone
             self.serializer.save(self.contacts)
         else:
-            print("Contact doesn't exist")
+            raise ValueError("Contact doesn't exist")
 
     def delete_contact(self, name):
         try:
             del self.contacts[name]
             self.serializer.save(self.contacts)
         except KeyError:
-            print("Contact doesn't exist")
+            raise ValueError("Contact doesn't exist")
 
 config = configparser.ConfigParser()
 config.read('settings.conf')
@@ -45,16 +46,28 @@ while True:
     elif action == 'c':
         name = input('Name? ')
         phone = input('Phone? ')
-        contacts.create_contact(name, phone)
+        try:
+            contacts.create_contact(name, phone)
+        except ValueError as e:
+            print(e)
     elif action == 'r':
         name = input('Name? ')
-        contacts.read_contact(name)
+        try:
+            contacts.read_contact(name)
+        except ValueError as e:
+            print(e)
     elif action == 'u':
         name = input('Name? ')
         phone = input('Phone? ')
-        contacts.update_contact(name, phone)
+        try:
+            contacts.update_contact(name, phone)
+        except ValueError as e:
+            print(e)
     elif action == 'd':
         name = input('Name? ')
-        contacts.delete_contact(name)
+        try:
+            contacts.delete_contact(name)
+        except ValueError as e:
+            print(e)
     else:
         print('Invalid action')
