@@ -1,10 +1,16 @@
+import json_serializer
+import csv_serializer
+
+
 class Contacts:
-    def __init__(self):
-        self.contacts = {}
+    def __init__(self, serializer):
+        self.serializer = serializer
+        self.contacts = self.serializer.load().copy()
 
     def create_contact(self, name, phone):
         if name not in self.contacts:
             self.contacts[name] = phone
+            self.serializer.save(self.contacts)
         else:
             print('Contact exists')
 
@@ -17,17 +23,22 @@ class Contacts:
     def update_contact(self, name, phone):
         if name in self.contacts:
             self.contacts[name] = phone
+            self.serializer.save(self.contacts)
         else:
             print("Contact doesn't exist")
 
     def delete_contact(self, name):
         try:
             del self.contacts[name]
+            self.serializer.save(self.contacts)
         except KeyError:
             print("Contact doesn't exist")
 
 
-contacts = Contacts()
+#serializer = json_serializer.JsonSerializer()
+serializer = csv_serializer.CSVSerializer()
+contacts = Contacts(serializer)
+
 while True:
     action = input('Action? ').lower()
     if action == 'q':
