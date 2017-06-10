@@ -24,7 +24,7 @@ while True:
     elif action == 'r':
         name = view.input('Name? ')
         try:
-            contacts.read_contact(name)
+            view.print(contacts.read_contact(name))
         except ValueError as e:
             view.print(e)
     elif action == 'u':

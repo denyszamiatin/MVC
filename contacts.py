@@ -12,7 +12,7 @@ class Contacts:
 
     def read_contact(self, name):
         try:
-            print(self.contacts[name])
+            return self.contacts[name]
         except KeyError:
             raise ValueError("Contact doesn't exist")
 
