@@ -1,4 +1,4 @@
-import settings
+import configparser
 
 class Contacts:
     def __init__(self, serializer):
@@ -32,8 +32,9 @@ class Contacts:
         except KeyError:
             print("Contact doesn't exist")
 
-
-serializer_module = __import__(settings.serializer_name)
+config = configparser.ConfigParser()
+config.read('settings.conf')
+serializer_module = __import__(config['Serializer']['name'])
 serializer = serializer_module.Serializer()
 contacts = Contacts(serializer)
 
