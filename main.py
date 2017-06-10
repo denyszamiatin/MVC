@@ -1,6 +1,4 @@
-import json_serializer
-import csv_serializer
-
+import settings
 
 class Contacts:
     def __init__(self, serializer):
@@ -35,8 +33,8 @@ class Contacts:
             print("Contact doesn't exist")
 
 
-#serializer = json_serializer.JsonSerializer()
-serializer = csv_serializer.CSVSerializer()
+serializer_module = __import__(settings.serializer_name)
+serializer = serializer_module.Serializer()
 contacts = Contacts(serializer)
 
 while True:

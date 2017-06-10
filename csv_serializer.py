@@ -1,6 +1,7 @@
 import csv
 
-class CSVSerializer:
+
+class Serializer:
     def __init__(self, filename='contacts.csv'):
         self.filename = filename
 
