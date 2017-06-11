@@ -1,4 +1,7 @@
-class Contacts:
+from abstact_contacts import AbstractContacts
+
+
+class Contacts(AbstractContacts):
     def __init__(self, serializer):
         self.serializer = serializer
         self.contacts = self.serializer.load().copy()

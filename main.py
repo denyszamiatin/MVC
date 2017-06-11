@@ -1,5 +1,4 @@
 import configparser
-import contacts
 
 
 config = configparser.ConfigParser()
@@ -8,7 +7,8 @@ serializer_module = __import__(config['Serializer']['name'])
 serializer = serializer_module.Serializer()
 view_module = __import__(config['View']['name'])
 view = view_module.View()
-contacts = contacts.Contacts(serializer)
+model_module = __import__(config['Model']['name'])
+contacts = model_module.Contacts(serializer)
 
 while True:
     action = view.input('Action? ').lower()
