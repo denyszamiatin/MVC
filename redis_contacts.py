@@ -31,3 +31,7 @@ class Contacts(AbstractContacts):
             self.r.set("phones:" + name, phone)
         else:
             raise ValueError("Contact doesn't exist")
+
+    def read_all(self):
+        names = self.r.keys('phones:*')
+        return [(name[7:].decode('utf8'), self.r.get(name).decode('utf-8')) for name in names]

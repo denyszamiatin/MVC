@@ -1,2 +1,6 @@
 class Serializer:
-    pass
+    def load(self):
+        return {}
+
+    def save(self, data):
+        pass
